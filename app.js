@@ -7,8 +7,8 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 
 const nunjucks = require('nunjucks');
-
 const infoRouter = require('./routes/info'); // info 없이 ./routes/ 이면 index가 default임
+const users = {"kys":{"pw":"1234", "name":"kim","birth":"2000-04-11","gender":"Man"}};
 
 dotenv.config();
 
@@ -39,11 +39,32 @@ app.use(
     })
 );
 
-app.use('/info', infoRouter); // info.js 작동
+const PUBLIC = path.join(__dirname, 'public');
 
-app.use((req, res, next) => {
-    next('Not found error!')
-});
+// menu
+app.get('/', (_, res) => res.redirect(301, 'public/index.html'));
+app.get('/student', (_, res) => res.sendFile(path.join(PUBLIC, 'user.html')));
+app.get('/attend', (_, res) => res.sendFile(path.join(PUBLIC, 'atd.html')));
+app.get('/album', (_, res) => res.sendFile(path.join(PUBLIC, 'album.html')));
+app.get('/dalant', (_, res) => res.sendFile(path.join(PUBLIC, 'dalant.html')));
+app.get('/notify', (_, res) => res.sendFile(path.join(PUBLIC, 'notify.html')));
+
+// user 관리
+app.get('/aid', (_, res) => res.send(JSON.stringify(users))) // pw는 안보이게 나중에 리팩토링 해야함
+
+// attendance 관리
+
+// album 관리
+
+// dalant 관리
+
+// notify 관리
+
+// app.use('/info', infoRouter); // info.js 작동
+
+// app.use((req, res, next) => {
+//     next('Not found error!')
+// });
 
 app.use((err, req, res, next) => {
     console.error(err);
