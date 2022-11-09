@@ -9,8 +9,9 @@ const session = require('express-session');
 const nunjucks = require('nunjucks');
 const userRouter = require('./routes/user');
 const adminRouter = require('./routes/admin');
-exports.users = {"kys":{"pw":"1234", "name":"kim","birth":"2000-04-11","gender":"Man"}};
-
+exports.users = { "kys": { "name": "kim", "birth": "2000-04-11", "gender": "Man", "attendance": true, "dalant": 100 }, "kyh": { "name": "김승현", "birth": "미상", "gender": "Man", "attendance": false, "dalant": 100} };
+exports.album = ['김윤서 사진', '김승현 사진', '김원빈 교수님 사진'];
+exports.noti = ['아무말', '안녕하세요']
 dotenv.config();
 
 const app = express();
