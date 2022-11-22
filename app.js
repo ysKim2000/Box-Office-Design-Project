@@ -9,6 +9,7 @@ const session = require('express-session');
 const nunjucks = require('nunjucks');
 const { sequelize } = require('./models');
 
+const movieRouter = require('./routes/movie')
 const userRouter = require('./routes/user');
 const commentRouter = require('./routes/comment');
 const indexRouter = require('./routes');
