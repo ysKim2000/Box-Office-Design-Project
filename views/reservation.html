@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>예매 페이지</title>
+    <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $.ajax({
+            method: "GET",
+            url: "http://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=999bdc7e274c0a5e1557a0642d612aee&targetDt=20221122",
+            data: {
+                itemPerPage: "5"
+            }
+        }).done(function (msg) {
+            let resultt = "";
+            for (let i = 0; i < 5; i++) {
+                let short_url = msg.boxOfficeResult.dailyBoxOfficeList[i];
+                resultt += i + 1 + ". "
+                resultt += short_url.movieCd + " - "
+                resultt += short_url.movieNm + "<br>"
+            }
+            $("#result").append(resultt)
+        })
+    </script>
+</head>
+
+<body>
+    <div id="result"></div>
+
+    <br>
+    <form id="form" action="/movie/movieReserve/movieSeat" method="post">
+        영화 선택(코드) <br>
+        <input type="text" name="movie" placeholder="영화" /><br>
+        좌석 선택(A1 ~ E5)<br>
+        <input type="text" name="seat" placeholder="좌석" /><br><br>
+        <button type="submit">전송</button>
+    </form>
+</body>

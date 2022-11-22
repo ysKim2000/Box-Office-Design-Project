@@ -49,6 +49,7 @@ app.use(
 
 app.use('/user', userRouter);
 app.use('/comment', commentRouter);
+app.use('/movie', movieRouter);
 app.use('/', indexRouter);
 
 app.use((req, res, next) => {

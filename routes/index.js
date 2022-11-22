@@ -1,15 +1,14 @@
 const express = require('express');
+const path = require('path');
 const { User, Comment } = require('../models');
+const PUBLIC = path.join(__dirname, '../views');
 
 const router = express.Router();
 
 
-router.get('/movies', async (req, res, next) => {
+router.get('/movie', async (req, res, next) => {
     try {
-        const users = await User.findAll({
-            attributes: ['id', 'name', 'description']
-        });
-        res.json(users);
+        res.sendFile(path.join(PUBLIC, 'movie.html'))
     } catch (err) {
         console.error(err);
         next(err);
