@@ -7,11 +7,12 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 
 const nunjucks = require('nunjucks');
+const { sequelize } = require('./models');
+
 const userRouter = require('./routes/user');
-const adminRouter = require('./routes/admin');
-exports.users = { "kys": { "name": "kim", "birth": "2000-04-11", "gender": "Man", "attendance": true, "dalant": 100 }, "kyh": { "name": "김승현", "birth": "미상", "gender": "Man", "attendance": false, "dalant": 100} };
-exports.album = ['김윤서 사진', '김승현 사진', '김원빈 교수님 사진'];
-exports.noti = ['아무말', '안녕하세요']
+const commentRouter = require('./routes/comment');
+const indexRouter = require('./routes');
+
 dotenv.config();
 
 const app = express();
@@ -20,8 +21,12 @@ app.set('port', process.env.PORT || 3000);
 app.set('view engine', 'html');
 nunjucks.configure(path.join(__dirname, 'views'), {
     express: app,
-    watch: true
+    watch: true,
 });
+
+sequelize.sync({ force: false })
+  .then(() => console.log('데이터베이스 연결 성공'))
+  .catch(err => console.error(err));
 
 app.use(
     morgan('dev'),
@@ -41,15 +46,14 @@ app.use(
     })
 );
 
-// const PUBLIC = path.join(__dirname, 'public');
-
-// login
-app.get('/', (_, res) => res.redirect(301, 'public/index.html'));
-app.use('/admin', adminRouter);
 app.use('/user', userRouter);
+app.use('/comment', commentRouter);
+app.use('/', indexRouter);
 
 app.use((req, res, next) => {
-    next('Not found error!')
+    res.locals.title = require('./package.json').name;
+    res.locals.port = app.get('port');
+    res.render('index');
 });
 
 app.use((err, req, res, next) => {

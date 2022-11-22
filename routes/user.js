@@ -1,60 +1,121 @@
 const express = require('express');
-const path = require('path');
+const bcrypt = require('bcrypt')
+const User = require('../models/user');
+const Info = require('../models/info');
 
-const controller = require('../app');
 const router = express.Router();
-const PUBLIC = path.join(__dirname, '../public/user');
 
+router.route('/')
+    .get(async (req, res, next) => {
+        try {
+            const users = await User.findAll({
+                attributes: ['id']
+            });
 
-router.get('/oneTime', (req, res) => {
-    res.sendFile(path.join(PUBLIC, 'userPage.html'));
-});
+            res.locals.title = require('../package.json').name;
+            res.locals.port = process.env.PORT;
+            res.locals.users = users.map(v => v.id);
+            res.render('user');
+        } catch (err) {
+            console.error(err);
+            next(err);
+        }
+    })
+    .post(async (req, res, next) => {
+        const { id, password, name, description, info } = req.body;
 
-router.get('/oneTime/student', (req, res) => {
-    res.sendFile(path.join(PUBLIC, 'student.html'));
-});
+        const user = await User.findOne({ where: { id } });
+        if (user) {
+            next('이미 등록된 사용자 아이디입니다.');
+            return;
+        }
 
-router.get('/oneTime/attend', (req, res) => {
-    res.sendFile(path.join(PUBLIC, 'attend.html'));
-});
+        try {
+            const hash = await bcrypt.hash(password, 12);
+            await User.create({
+                id,
+                password: hash,
+                name,
+                description
+            });
+            await Info.create({
+                userId: id,
+                info
+            });
 
-router.get('/oneTime/album', (req, res) => {
-    res.send(`${controller.album}`)
-});
+            res.redirect('/');
+        } catch (err) {
+            console.error(err);
+            next(err);
+        }
+    });
 
-router.get('/oneTime/notify', (req, res) => {
-    res.send(`${controller.noti}`)
-});
+router.post('/update', async (req, res, next) => {
+    try {
+        const result = await User.update({
+            description: req.body.description
+        }, {
+            where: { id: req.body.id }
+        });
 
-router.get('/oneTime/student/aid', (req, res) => {
-    res.send(JSON.stringify(controller.users))
-});
-
-router.get('/oneTime/student/rid', (req, res) => {
-    res.sendFile(path.join(PUBLIC, 'stdSearch.html'));
-});
-
-router.get('/oneTime/student/rid/search', (req, res) => {
-    const id = req.query.id;
-    res.send(id in controller.users ? JSON.stringify(controller.users[id]) : `존재하지 않은 ID: ${id}`);
-});
-
-router.get('/oneTime/attend', (req, res) => {
-    res.sendFile(path.join(PUBLIC, 'attend.html'));
-});
-
-router.get('/oneTime/attend/atridAll', (req, res) => {
-    let list = []
-    for(id in controller.users){
-        list.push(`이름: ${controller.users[id].name}, 출결: ${controller.users[id].attendance ? '출석': '결석'}`)
+        if (result) res.redirect('/');
+        else next('Not updated!')
+    } catch (err) {
+        console.error(err);
+        next(err);
     }
-    res.send(list)
 });
 
-router.get('/oneTime/attend/atridSingle', (req, res) => {
-    const id = req.query.id;
-    res.send(id in controller.users ? JSON.stringify(controller.users[id].attendance ? '출석':'결석') : `존재하지 않은 ID: ${id}`);
+router.get('/delete/:id', async (req, res, next) => {
+    try {
+        await Info.destroy({
+            where: { userId: req.params.id }
+        })
+        const result = await User.destroy({
+            where: { id: req.params.id }
+        });
+
+        if (result) res.redirect('/');
+        else next('Not deleted!')
+    } catch (err) {
+        console.error(err);
+        next(err);
+    }
 });
 
+router.get('/:id/comments', async (req, res, next) => {
+    try {
+        const user = await User.findOne({
+            where: { id: req.params.id }
+        });
+
+        if (user) {
+            const comments = await user.getComments();
+            res.json(comments);
+        } else
+            next(`There is no user with ${req.params.id}.`);
+    } catch (err) {
+        console.error(err);
+        next(err);
+    }
+});
+
+router.get('/:id', async (req, res, next) => {
+    try {
+        const user = await User.findOne({
+            where: { id: req.params.id },
+            attributes: ['id', 'name', 'description'],
+            include: [{
+                model: Info,
+                attributes: ['info']
+            }]
+        });
+
+        res.json(user);
+    } catch (err) {
+        console.error(err);
+        next(err);
+    }
+});
 
 module.exports = router;
