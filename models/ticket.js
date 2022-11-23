@@ -5,7 +5,8 @@ module.exports = class Ticket extends Sequelize.Model {
     return super.init({
       ticket: {
         type: Sequelize.STRING(100),
-        allowNull: false
+        allowNull: false,
+        primaryKey: true
       },
       movieCode: {
         type: Sequelize.INTEGER(100),

@@ -44,7 +44,7 @@ router.get('/movieRead', async (req, res) => {
     }
 });
 
-router.get('/logout', async (req, res) => {
+router.post('/logout', async (req, res) => {
     try {
         res.redirect('/');
     } catch (err) {
@@ -53,9 +53,9 @@ router.get('/logout', async (req, res) => {
     }
 });
 
-router.get('/movieCancel', async (req, res) => {
+router.post('/movieCancel', async (req, res) => {
     try {
-        res.redirect('/movie');
+        res.sendFile(path.join(PUBLIC, 'movie.html'));
     } catch (err) {
         console.error(err);
         next(err);

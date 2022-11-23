@@ -17,7 +17,7 @@ module.exports = class User extends Sequelize.Model {
                 allowNull: false
             },
             birth: {
-                type: Sequelize.STRING(100),
+                type: Sequelize.STRING(50),
                 allowNull: false
             },
             gender: {

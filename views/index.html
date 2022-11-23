@@ -6,29 +6,17 @@
 </head>
 
 <body>
-
-    <form  id="form" action="/movie" method="get" enctype="multipart/form-data">
-        <br><br>
-        <button style="width: 100px" type="submit">영화</button>
+    <form id="form" action="/movie" method="post">
+        <p>WONBIN CINEMA 로그인</p>
+        ID<br>
+        <input style="width: 150px" type="text" name="id" placeholder="ID" required/><br>
+        PW<br>
+        <input style="width: 150px" type="text" name="pw" placeholder="PW" required/><br>
+        <button style="width: 70px" type="submit">로그인</button><br>
     </form>
-
-    <p>
-        API page<br>
-        <a href="http://localhost:{{port}}/movie">http://localhost:{{port}}/movie</a><br>
-    </p>
-
-    <p>
-        Info page<br>
-        <a href="http://localhost:{{port}}/users">http://localhost:{{port}}/users</a><br>
-        <a href="http://localhost:{{port}}/comments">http://localhost:{{port}}/comments</a><br>
-        <a href="http://localhost:{{port}}/data">http://localhost:{{port}}/data</a>
-    </p>
-
-    <p>
-        User page<br>
-        <a href="http://localhost:{{port}}/user/">http://localhost:{{port}}/user</a><br>
-    </p>
-
+    <form id="form" action="/signUp" method="get">
+        <button style="width: 70px" type="submit">회원가입</button><br>
+    </form>
 </body>
 
 </html>
