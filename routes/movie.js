@@ -25,10 +25,10 @@ router.get('/movieReserve', async (req, res) => {
 
 // await Ticket.create({ movieName });
 router.post('/movieReserve/reservation', async (req, res) => {
-    const { movieName } = req.body;
+    const { movieName, seat } = req.body;
     try {
-        console.log(movieName);
-        res.sendFile(path.join(PUBLIC, 'seat.html'))
+        console.log(movieName, seat);
+        res.send('TEST');
     } catch (err) {
         console.error(err);
         next(err);
