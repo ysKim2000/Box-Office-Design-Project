@@ -1,34 +1,24 @@
 const express = require('express');
-const { User, Comment } = require('../models');
+const { Client, Reservation } = require('../models');
 
 const router = express.Router();
 
-router.get('/users', async (req, res, next) => {
+router.get('/clients', async (req, res, next) => {
     try {
-        const users = await User.findAll({
-            attributes: ['id', 'name', 'description']
+        const clients = await Client.findAll({
+            attributes: ['id', 'pw', 'name', 'birth', 'gender']
         });
-        res.json(users);
+        res.json(clients);
     } catch (err) {
         console.error(err);
         next(err);
     }
 });
 
-router.get('/comments', async (req, res, next) => {
+router.get('/reservations', async (req, res, next) => {
     try {
-        const comments = await Comment.findAll({});
-        res.json(comments);
-    } catch (err) {
-        console.error(err);
-        next(err);
-    }
-});
-
-router.get('/info', async (req, res, next) => {
-    try {
-        const info = await Info.findAll({});
-        res.json(info);
+        const reservations = await reservation.findAll({});
+        res.json(reservations);
     } catch (err) {
         console.error(err);
         next(err);
@@ -37,13 +27,13 @@ router.get('/info', async (req, res, next) => {
 
 router.get('/data', async (req, res, next) => {
     try {
-        const users = await User.findAll({
-            attributes: ['id', 'name', 'description'],
+        const clients = await Client.findAll({
+            attributes: ['id', 'pw', 'name', 'birth', 'gender'],
             include: {
-                model: Comment
+                model: Reservation
             }
         });
-        res.json(users);
+        res.json(clients);
     } catch (err) {
         console.error(err);
         next(err);
