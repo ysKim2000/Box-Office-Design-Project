@@ -25,6 +25,15 @@ router.get('/reservations', async (req, res, next) => {
     }
 });
 
+router.post('/signup', async (req, res, next) => {
+    try {
+       res.sendFile()
+    } catch (err) {
+        console.error(err);
+        next(err);
+    }
+});
+
 router.get('/data', async (req, res, next) => {
     try {
         const clients = await Client.findAll({

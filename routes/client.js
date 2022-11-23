@@ -33,20 +33,13 @@ router.route('/')
         }
 
         try {
-            const hash = await bcrypt.hash(password, 12);
+            const hash = await bcrypt.hash(password, 8);
             await client.create({
                 id,
                 password: hash,
                 name,
                 birth,
                 gender
-            });
-            await Reservation.create({
-                clientId: id,
-                moviecode,
-                moviename,
-                movietime,
-                movieseats
             });
             res.redirect('/');
         } catch (err) {
