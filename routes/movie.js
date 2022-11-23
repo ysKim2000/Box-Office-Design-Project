@@ -3,7 +3,7 @@ const path = require('path');
 
 const router = express.Router();
 const PUBLIC = path.join(__dirname, '../views');
-
+const Ticket = require('../models/ticket');
 
 router.get('/movieRank', async (req, res) => {
     try {
@@ -23,9 +23,12 @@ router.get('/movieReserve', async (req, res) => {
     }
 });
 
-router.post('/movieReserve/movieSeat', async (req, res) => {
+// await Ticket.create({ movieName });
+router.post('/movieReserve/reservation', async (req, res) => {
+    const { movieName } = req.body;
     try {
-        res.send('Hi') // 디비 작업하고 저기서 보내는 거 받고 이케 하면 됨
+        console.log(movieName);
+        res.sendFile(path.join(PUBLIC, 'seat.html'))
     } catch (err) {
         console.error(err);
         next(err);
@@ -41,9 +44,18 @@ router.get('/movieRead', async (req, res) => {
     }
 });
 
-router.get('/movieCalcel', async (req, res) => {
+router.get('/logout', async (req, res) => {
     try {
-        res.send('예매 취소')
+        res.redirect('/');
+    } catch (err) {
+        console.error(err);
+        next(err);
+    }
+});
+
+router.get('/movieCancel', async (req, res) => {
+    try {
+        res.redirect('/movie');
     } catch (err) {
         console.error(err);
         next(err);

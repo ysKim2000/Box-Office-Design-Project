@@ -16,9 +16,13 @@ module.exports = class User extends Sequelize.Model {
                 type: Sequelize.STRING(20),
                 allowNull: false
             },
-            description: {
-                type: Sequelize.TEXT,
-                allowNull: true
+            birth: {
+                type: Sequelize.STRING(100),
+                allowNull: false
+            },
+            gender: {
+                type: Sequelize.STRING(40),
+                allowNull: false
             }
         }, {
             sequelize,
@@ -33,8 +37,6 @@ module.exports = class User extends Sequelize.Model {
     }
 
     static associate(db) {
-        db.User.hasMany(db.Comment, { foreignKey: 'userId', sourceKey: 'id', onDelete: 'cascade' });
-        db.User.hasOne(db.Info, { foreignKey: 'userId', sourceKey: 'id', onDelete: 'cascade' });
-
+        db.User.hasMany(db.Ticket, { foreignKey: 'userId', sourceKey: 'id', onDelete: 'cascade' });
     }
 };

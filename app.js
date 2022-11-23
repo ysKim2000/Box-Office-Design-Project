@@ -11,7 +11,6 @@ const { sequelize } = require('./models');
 
 const movieRouter = require('./routes/movie')
 const userRouter = require('./routes/user');
-const commentRouter = require('./routes/comment');
 const indexRouter = require('./routes');
 
 dotenv.config();
@@ -48,7 +47,6 @@ app.use(
 );
 
 app.use('/user', userRouter);
-app.use('/comment', commentRouter);
 app.use('/movie', movieRouter);
 app.use('/', indexRouter);
 

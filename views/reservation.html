@@ -18,21 +18,30 @@
                 resultt += i + 1 + ". "
                 resultt += short_url.movieCd + " - "
                 resultt += short_url.movieNm + "<br>"
+                $("#form").append(short_url.movieNm);
             }
-            $("#result").append(resultt)
+            $("#result").append(resultt);
         })
     </script>
 </head>
 
 <body>
+    영화 선택
     <div id="result"></div>
-
     <br>
-    <form id="form" action="/movie/movieReserve/movieSeat" method="post">
-        영화 선택(코드) <br>
-        <input type="text" name="movie" placeholder="영화" /><br>
-        좌석 선택(A1 ~ E5)<br>
-        <input type="text" name="seat" placeholder="좌석" /><br><br>
-        <button type="submit">전송</button>
+    <form id="form" action="/movie/movieReserve/reservation" method="post">
+        영화 선택(1~5) :<br>
+        <label>1.<input type="radio" id = "movieName0" name="movieName" value="&{movieName[0]}" required/></label>
+        <label>2.<input type="radio" id = "movieName1" name="movieName" value="&{movieName[1]}"/></label>
+        <label>3.<input type="radio" id = "movieName2" name="movieName" value="&{movieName[2]}"/></label>
+        <label>4.<input type="radio" id = "movieName3" name="movieName" value="&{movieName[3]}"/></label>
+        <label>5.<input type="radio" id = "movieName4" name="movieName" value="&{movieName[4]}"/></label>
+        좌석 선택(A1 ~ E5) :<br>
+        <input type="text" name="seat" placeholder="좌석" />
+        <button type="submit">전송</button> 
+    </form>
+    <br>
+    <form id="form" action="/movie/movieCancel" method="get">
+        <button type="submit">취소</button>
     </form>
 </body>

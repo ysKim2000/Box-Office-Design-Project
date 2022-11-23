@@ -1,10 +1,9 @@
 const express = require('express');
 const path = require('path');
-const { User, Comment } = require('../models');
+const { User } = require('../models');
 const PUBLIC = path.join(__dirname, '../views');
 
 const router = express.Router();
-
 
 router.get('/movie', async (req, res, next) => {
     try {
@@ -21,16 +20,6 @@ router.get('/users', async (req, res, next) => {
             attributes: ['id', 'name', 'description']
         });
         res.json(users);
-    } catch (err) {
-        console.error(err);
-        next(err);
-    }
-});
-
-router.get('/comments', async (req, res, next) => {
-    try {
-        const comments = await Comment.findAll({});
-        res.json(comments);
     } catch (err) {
         console.error(err);
         next(err);
