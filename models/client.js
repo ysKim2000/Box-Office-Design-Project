@@ -17,11 +17,11 @@ module.exports = class Client extends Sequelize.Model {
                 allowNull: false
             },
             birth: {
-                type: Sequelize.TEXT,
+                type: Sequelize.STRING(20),
                 allowNull: true
             },
             gender: {
-                type: Sequelize.TEXT,
+                type: Sequelize.STRING(20),
                 allowNull: true
             }
         }, {
