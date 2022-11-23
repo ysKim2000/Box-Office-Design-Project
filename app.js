@@ -9,8 +9,8 @@ const session = require('express-session');
 const nunjucks = require('nunjucks');
 const { sequelize } = require('./models');
 
-const userRouter = require('./routes/user');
-const commentRouter = require('./routes/comment');
+const clientRouter = require('./routes/client');
+const reservationRouter = require('./routes/reservation');
 const indexRouter = require('./routes');
 
 dotenv.config();
@@ -46,8 +46,8 @@ app.use(
     })
 );
 
-app.use('/user', userRouter);
-app.use('/comment', commentRouter);
+app.use('/client', clientRouter);
+app.use('/reservation', reservationRouter);
 app.use('/', indexRouter);
 
 app.use((req, res, next) => {
