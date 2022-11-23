@@ -85,37 +85,37 @@ router.route('/')
 //     }
 // });
 
-// router.get('/:id/reservations', async (req, res, next) => {
-//     try {
-//         const client = await client.findOne({
-//             where: { id: req.params.id }
-//         });
+router.get('/:id/reservations', async (req, res, next) => {
+    try {
+        const client = await client.findOne({
+            where: { id: req.params.id }
+        });
 
-//         if (client) {
-//             const reservations = await client.getReservations();
-//             res.json(reservations);
-//         } else
-//             next(`There is no client with ${req.params.id}.`);
-//     } catch (err) {
-//         console.error(err);
-//         next(err);
-//     }
-// });
+        if (client) {
+            const reservations = await client.getReservations();
+            res.json(reservations);
+        } else
+            next(`There is no client with ${req.params.id}.`);
+    } catch (err) {
+        console.error(err);
+        next(err);
+    }
+});
 
-// router.get('/:id', async (req, res, next) => {
-//     try {
-//         const client = await client.findOne({
-//             where: { id: req.params.id },
-//             attributes: ['id', 'pw', 'name', 'birth', 'gender'],
-//             include: [{
-//                 model: Reservation
-//             }]
-//         });
-//         res.json(client);
-//     } catch (err) {
-//         console.error(err);
-//         next(err);
-//     }
-// });
+router.get('/:id', async (req, res, next) => {
+    try {
+        const client = await client.findOne({
+            where: { id: req.params.id },
+            attributes: ['id', 'pw', 'name', 'birth', 'gender'],
+            include: [{
+                model: Reservation
+            }]
+        });
+        res.json(client);
+    } catch (err) {
+        console.error(err);
+        next(err);
+    }
+});
 
 module.exports = router;

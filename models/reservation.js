@@ -31,6 +31,6 @@ module.exports = class Reservation extends Sequelize.Model {
   }
 
   static associate(db) {
-    db.Reservation.belongsTo(db.Client, { foreignKey: 'ClientId', targetKey: 'id' });
+    db.Reservation.belongsTo(db.Client, { foreignKey: 'clientId', targetKey: 'id' });
   }
 };

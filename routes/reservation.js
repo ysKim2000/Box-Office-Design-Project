@@ -12,7 +12,7 @@ router.route('/')
         const { clientId, reservation } = req.body;
 
         try {
-            await reservation.create({ userId, reservation });
+            await reservation.create({ clientId, reservation });
             res.redirect('/');
         } catch (err) {
             console.error(err);
