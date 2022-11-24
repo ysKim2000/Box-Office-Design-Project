@@ -48,6 +48,7 @@ router.post('/movie', async (req, res, next) => {
         const match = await bcrypt.compare(pw, user.password);
         if (user) {
             if (match){
+                res.cookie('userId', id);
                 res.sendFile(path.join(PUBLIC, "movie.html"));
             }
             else{
