@@ -29,21 +29,13 @@ router.post('/movieReserve/reservation', async (req, res) => {
     try {
         const { time, movieTime, movieInfo, movieSeat } = req.body;
         const [movieCode, movieName] = movieInfo.split(",");
-        
-        let ticket = "134139093013091";
-        const ticketNum = await Ticket.findOne({ where: { ticket } });
-        if (ticketNum) {
-            next('이미 등록된 자리입니다');
-            return;
-        }
-        // var movieTime = "2022-11-23-23:00";
 
         // 영화 코드, 오전/오후, 영화 시간, 좌석 합친 문자열
         const movieStr = new String(movieCode + time + movieTime + movieSeat).valueOf();
-        console.log("문자열: "+movieStr);
+        console.log("문자열: " + movieStr);
         // 합친 문자열 해시화
         const hash = await bcrypt.hash(movieStr, 8);
-        console.log("해시값: "+hash);
+        console.log("해시값: " + hash);
 
         // 해시화한 문자열 정수 변환 함수
         function func(string) {
@@ -56,9 +48,16 @@ router.post('/movieReserve/reservation', async (req, res) => {
             }
             return hash > 0 ? hash : -hash
         }
-        const integerHash = func(hash)
+        const integerHash = func(movieStr)
         console.log(integerHash);
-        
+
+        const ticketNum = await Ticket.findOne({ where: { ticket: integerHash } });
+        if (ticketNum) {
+            // next('이미 등록된 자리입니다');
+            res.send("TEST");
+            return;
+        }
+
         await Ticket.create({
             ticket: integerHash,
             userId: req.cookies.userId,
