@@ -1,9 +1,6 @@
 const Sequelize = require('sequelize');
 const User = require('./user');
-const Comment = require('./comment');
-const Info = require('./info');
-const Client = require('./client')
-const Reservation = require('./reservation')
+const Ticket = require('./ticket');
 
 const env = process.env.NODE_ENV || 'development';
 const config = require('../config/config')[env];
@@ -17,22 +14,13 @@ db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
 db.User = User;
-db.Comment = Comment;
-db.Info = Info;
-db.Client = Client;
-db.Reservation = Reservation;
+db.Ticket = Ticket;
 
 User.init(sequelize);
-Comment.init(sequelize);
-Info.init(sequelize);
-Client.init(sequelize);
-Reservation.init(sequelize);
+Ticket.init(sequelize);
 
 User.associate(db);
-Comment.associate(db);
-Info.associate(db);
-Client.associate(db);
-Reservation.associate(db);
+Ticket.associate(db);
 
 module.exports = db;
 

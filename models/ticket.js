@@ -1,29 +1,34 @@
 const Sequelize = require('sequelize');
 
-module.exports = class Reservation extends Sequelize.Model {
+module.exports = class Ticket extends Sequelize.Model {
   static init(sequelize) {
     return super.init({
-      MoiveCode: {
+      ticket: {
+        type: Sequelize.STRING(100),
+        allowNull: false,
+        primaryKey: true
+      },
+      movieCode: {
+        type: Sequelize.INTEGER(100),
+        allowNull: false
+      },
+      movieName: {
         type: Sequelize.STRING(100),
         allowNull: false
       },
-      MoiveName: {
+      movieTime: {
         type: Sequelize.STRING(100),
         allowNull: false
       },
-      MoiveTime: {
-        type: Sequelize.STRING(100),
-        allowNull: false
-      },
-      MoiveSeats: {
+      movieSeat: {
         type: Sequelize.STRING(100),
         allowNull: false
       }
     }, {
       sequelize,
       timestamps: false,
-      modelName: 'Reservation',
-      tableName: 'reservations',
+      modelName: 'Ticket',
+      tableName: 'tickets',
       paranoid: false,
       charset: 'utf8mb4',
       collate: 'utf8mb4_general_ci'
@@ -31,6 +36,6 @@ module.exports = class Reservation extends Sequelize.Model {
   }
 
   static associate(db) {
-    db.Reservation.belongsTo(db.Client, { foreignKey: 'clientId', targetKey: 'id' });
+    db.Ticket.belongsTo(db.User, { foreignKey: 'userId', targetKey: 'id' });
   }
 };

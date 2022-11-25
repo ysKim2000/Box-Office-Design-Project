@@ -1,12 +1,11 @@
 {
-  "name": "step3",
+  "name": "project",
   "version": "1.0.0",
-  "description": "",
   "main": "app.js",
   "scripts": {
     "start": "nodemon"
   },
-  "author": "Prof. Wonvin Kim, Computer Software, Korean Bibie University",
+  "author": "Yunseo Kim",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.0",
@@ -22,5 +21,14 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.20"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ysKim2000/Web-System-Project-2.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ysKim2000/Web-System-Project-2/issues"
+  },
+  "homepage": "https://github.com/ysKim2000/Web-System-Project-2#readme",
+  "description": ""
 }
