@@ -11,8 +11,13 @@ const { sequelize } = require('./models');
 
 const movieRouter = require('./routes/movie')
 const indexRouter = require('./routes');
+const authRouter = require('./routes/auth');
+
+const passport = require('passport');
+const passportConfig = require('./passport');
 
 dotenv.config();
+passportConfig();
 
 const app = express();
 app.set('port', process.env.PORT || 3000);
@@ -45,6 +50,10 @@ app.use(
     })
 );
 
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use('/auth', authRouter);
 app.use('/movie', movieRouter);
 app.use('/', indexRouter);
 
