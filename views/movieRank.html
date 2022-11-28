@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>일별 박스오피스</title>
+    <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <div id="result"></div>
+    <script>
+        const DATE = new Date().toISOString().substring(0, 10).replace(/-/g, '') - 1;
+        $.ajax({
+            method: "GET",
+            url: "http://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=999bdc7e274c0a5e1557a0642d612aee&targetDt=" + DATE,
+            data: {
+                itemPerPage: "10"
+            }
+        }).done(function (msg) {
+            let resultt = "";
+            for (let i = 0; i < 10; i++) {
+                let short_url = msg.boxOfficeResult.dailyBoxOfficeList[i];
+                resultt += i + 1 + "위<br>"
+                resultt += "영화 코드 : " + short_url.movieCd + "<br>"
+                resultt += "영화 제목 : " + short_url.movieNm
+                resultt += "<p>개봉일: " + short_url.openDt + ", 일일 관객수 : " + short_url.audiCnt + "</p><hr>"
+            }
+            $("#result").append(resultt)
+        })
+    </script>
+    <form id="form" action="/movie/movieCancel" method="post">
+        <button type="submit">뒤로가기</button>
+    </form>
+</body>
+
+</html>
