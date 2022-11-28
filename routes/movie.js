@@ -5,7 +5,6 @@ const bcrypt = require('bcrypt');
 const router = express.Router();
 const PUBLIC = path.join(__dirname, '../views');
 const Ticket = require('../models/ticket');
-const User = require('../models/user');
 
 router.get('/movieRank', async (req, res) => {
     try {
@@ -32,10 +31,8 @@ router.post('/movieReserve/reservation', async (req, res) => {
 
         // 영화 코드, 오전/오후, 영화 시간, 좌석 합친 문자열
         const movieStr = new String(movieCode + time + movieTime + movieSeat).valueOf();
-        console.log("문자열: " + movieStr);
         // 합친 문자열 해시화
-        const hash = await bcrypt.hash(movieStr, 8);
-        console.log("해시값: " + hash);
+        // const hash = await bcrypt.hash(movieStr, 8);
 
         // 해시화한 문자열 정수 변환 함수
         function func(string) {
@@ -49,12 +46,10 @@ router.post('/movieReserve/reservation', async (req, res) => {
             return hash > 0 ? hash : -hash
         }
         const integerHash = func(movieStr)
-        console.log(integerHash);
 
         const ticketNum = await Ticket.findOne({ where: { ticket: integerHash } });
         if (ticketNum) {
-            // next('이미 등록된 자리입니다');
-            res.send("TEST");
+            res.send("이미 등록된 좌석입니다.");
             return;
         }
 
@@ -66,7 +61,7 @@ router.post('/movieReserve/reservation', async (req, res) => {
             movieTime: time + " " + movieTime,
             movieSeat
         });
-        // res.redirect('/')
+        res.sendFile(path.join(PUBLIC, 'movie.html'));
     } catch (err) {
         console.error(err);
         next(err);
@@ -75,7 +70,14 @@ router.post('/movieReserve/reservation', async (req, res) => {
 
 router.get('/movieRead', async (req, res) => {
     try {
-        res.send('예매 조회')
+        const userTicket = await Ticket.findAll({ 
+            where: { userId: req.cookies.userId },
+            attributes: ['ticket', 'movieCode', 'movieName', 'movieTime', 'movieSeat']
+        });
+        // res.render(PUBLIC +"ticketRead.html", { data: userTicket })
+        res.json(userTicket);
+        // res.locals.title = '티켓 페이지';
+        // res.locals.message = userTicket;
     } catch (err) {
         console.error(err);
         next(err);
