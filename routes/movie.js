@@ -48,7 +48,13 @@ router.post('/movieReserve/reservation', async (req, res) => {
         const integerHash = func(movieStr)
 
         const ticketNum = await Ticket.findOne({ where: { ticket: integerHash } });
-        if (ticketNum) {
+
+        const regex = /^[a-e|A-E|0-5]+$/;
+        if(regex.test(movieSeat) == false){ // 좌석 유효성 검사
+            res.send("잘못된 좌석입니다.");
+        }
+
+        if (ticketNum) { 
             res.send("이미 등록된 좌석입니다.");
             return;
         }
