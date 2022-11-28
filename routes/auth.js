@@ -6,7 +6,7 @@ const router = express.Router();
 router.post('/login', (req, res, next) => {
     passport.authenticate('local', (authError, user, info) => {
         if (user) req.login(user, loginError => res.redirect('movie.html'));
-        else next(`Login fail!`);
+        else next(res.write("<script>alert(`Login fail!`)</script>"));
     })(req, res, next);
 });
 
