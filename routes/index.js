@@ -41,26 +41,26 @@ router.post('/signUp/validation', async (req, res, next) => {
 });
 
 
-router.post('/movie', async (req, res, next) => {
-    try {
-        const { id, pw } = req.body;
-        const user = await User.findOne({ where: { id } });
-        const match = await bcrypt.compare(pw, user.password);
-        if (user) {
-            if (match) {
-                res.cookie('userId', id);
-                res.sendFile(path.join(PUBLIC, "movie.html"));
-            }
-            else {
-                res.redirect('/');
-            }
-        } else {
-            res.redirect('/');
-        }
-    } catch (err) {
-        console.error(err);
-        next(err);
-    }
-});
+// router.post('/movie', async (req, res, next) => {
+//     try {
+//         const { id, pw } = req.body;
+//         const user = await User.findOne({ where: { id } });
+//         const match = await bcrypt.compare(pw, user.password);
+//         if (user) {
+//             if (match) {
+//                 res.cookie('userId', id);
+//                 res.sendFile(path.join(PUBLIC, '/movie.html'));
+//             }
+//             else {
+//                 res.redirect('/');
+//             }
+//         } else {
+//             res.redirect('/');
+//         }
+//     } catch (err) {
+//         console.error(err);
+//         next(err);
+//     }
+// });
 
 module.exports = router;

@@ -2,7 +2,6 @@ const path = require('path');
 
 const express = require('express');
 const Comment = require('../models/comment');
-
 const { isLoggedIn } = require('./helpers');
 
 
