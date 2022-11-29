@@ -90,14 +90,14 @@ router.get('/movieRead', async (req, res) => {
     }
 });
 
-// router.post('/logout', async (req, res) => {
-//     try {
-//         res.redirect('/');
-//     } catch (err) {
-//         console.error(err);
-//         next(err);
-//     }
-// });
+router.post('/logout', async (req, res) => {
+    try {
+        res.redirect('/');
+    } catch (err) {
+        console.error(err);
+        next(err);
+    }
+});
 
 router.post('/movieCancel', async (req, res) => {
     try {

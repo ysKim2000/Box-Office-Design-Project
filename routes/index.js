@@ -7,6 +7,7 @@ const path = require('path');
 const router = express.Router();
 const PUBLIC = path.join(__dirname, '../views');
 
+router.get('/users', (req, res,) => res.json(global.users));
 
 router.get('/signUp', async (req, res, next) => {
     try {

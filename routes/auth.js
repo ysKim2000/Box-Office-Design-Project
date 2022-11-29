@@ -14,8 +14,8 @@ router.post('/login', (req, res, next) => {
 
 router.get('/logout', (req, res, next) => {
     req.logout();
-    req.session.destroy();
-    res.redirect('/');
+    // req.session.destroy();
+    res.sendFile(path.join(PUBLIC, "index.html"));
 });
 
 module.exports = router;
