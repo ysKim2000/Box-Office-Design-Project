@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt');
 const router = express.Router();
 const PUBLIC = path.join(__dirname, '../views');
 const Ticket = require('../models/ticket');
+const passport = require('passport');
 
 router.get('/movieRank', async (req, res) => {
     try {
@@ -77,7 +78,7 @@ router.post('/movieReserve/reservation', async (req, res) => {
 router.get('/movieRead', async (req, res) => {
     try {
         const userTicket = await Ticket.findAll({ 
-            where: { userId: req.cookies.userId },
+            where: { userId: passport.session },
             attributes: ['ticket', 'movieCode', 'movieName', 'movieTime', 'movieSeat']
         });
         // res.render(PUBLIC +"ticketRead.html", { data: userTicket })
@@ -90,14 +91,14 @@ router.get('/movieRead', async (req, res) => {
     }
 });
 
-router.post('/logout', async (req, res) => {
-    try {
-        res.redirect('/');
-    } catch (err) {
-        console.error(err);
-        next(err);
-    }
-});
+// router.post('/logout', async (req, res) => {
+//     try {
+//         res.redirect('/');
+//     } catch (err) {
+//         console.error(err);
+//         next(err);
+//     }
+// });
 
 router.post('/movieCancel', async (req, res) => {
     try {

@@ -19,7 +19,7 @@ router.route('/')
 
         try {
             await Comment.create({ userId, comment });
-            res.redirect('/movie.html');
+            res.render('movie');
         } catch (err) {
             console.error(err);
             next(err);

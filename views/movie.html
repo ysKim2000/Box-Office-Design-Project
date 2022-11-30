@@ -20,17 +20,17 @@
     </form>
     <br>
     <form id="form" action="" method="post">
-        영화후기 작성 <br>
+    영화후기 작성 <br>
         <input type="text" name="comment" placeholder="comment" /><br>
         <button type="submit">전송</button>
     </form>
     <br>
-    <p>
-        내가 작성한 후기<br>
-        <a href="http://localhost:{{port}}/user/{{userId}}/comments">확인하기</a><br>
-    </p>
-    
-    <form id="form" action="/logout" method="get">
-        <button type="submit">뒤로가기</button>
+    내가 작성한 후기<br>
+    <form id="form" action="/comment" method="get">
+        <button style="width: 100px" type="submit">후기 조회</button>
+    <br>
+    <br>
+    <form id="form" action="/auth/logout" method="get">
+        <button type="submit">로그아웃</button>
     </form>
 </body>
