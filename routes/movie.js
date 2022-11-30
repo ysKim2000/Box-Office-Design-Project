@@ -78,7 +78,7 @@ router.post('/movieReserve/reservation', async (req, res) => {
 router.get('/movieRead', async (req, res) => {
     try {
         const userTicket = await Ticket.findAll({ 
-            where: { userId: passport.session },
+            where: { userId: req.session.id },
             attributes: ['ticket', 'movieCode', 'movieName', 'movieTime', 'movieSeat']
         });
         // res.render(PUBLIC +"ticketRead.html", { data: userTicket })
