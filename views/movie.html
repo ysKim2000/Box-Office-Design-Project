@@ -26,10 +26,8 @@
     </form>
     <br>
     <p>
-        사용자 포스트 정보<br>
-        {% for userId in users %}
-            <a href="http://localhost:{{port}}/user/{{userId}}/comments">http://localhost:{{port}}/user/{{userId}}/comments</a><br>
-        {% endfor %}
+        내가 작성한 후기<br>
+        <a href="http://localhost:{{port}}/user/{{userId}}/comments">확인하기</a><br>
     </p>
     
     <form id="form" action="/logout" method="get">
