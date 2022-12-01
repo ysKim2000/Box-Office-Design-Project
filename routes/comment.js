@@ -6,7 +6,6 @@ const { isLoggedIn } = require('./helpers');
 
 
 const router = express.Router();
-
 router.route('/')
     .get(isLoggedIn, (req, res) => {
         res.locals.title = require('../package.json').name;
@@ -25,5 +24,4 @@ router.route('/')
             next(err);
         }
     });
-
 module.exports = router;

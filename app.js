@@ -13,6 +13,7 @@ const movieRouter = require('./routes/movie')
 const indexRouter = require('./routes');
 const authRouter = require('./routes/auth');
 const commentRouter = require('./routes/comment');
+const signUpRouter = require('./routes/signUp')
 
 const passport = require('passport');
 const passportConfig = require('./passport');
@@ -58,6 +59,7 @@ app.use('/auth', authRouter);
 app.use('/movie', movieRouter);
 app.use('/', indexRouter);
 app.use('/comment', commentRouter);
+app.use('/signUp',signUpRouter);
 
 app.use((req, res, next) => {
     res.locals.title = require('./package.json').name;

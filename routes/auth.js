@@ -4,6 +4,8 @@ const path = require('path');
 const PUBLIC = path.join(__dirname, '../views');
 const router = express.Router();
 
+const { logout } = require('./helpers');
+
 router.post('/login', (req, res, next) => {
     passport.authenticate('local', (authError, user, info) => {
         // if (user) req.login(user, loginError => res.redirect('movie'));
@@ -12,10 +14,6 @@ router.post('/login', (req, res, next) => {
     })(req, res, next);
 });
 
-router.get('/logout', (req, res, next) => {
-    req.logout();
-    req.session.destroy();
-    res.sendFile(path.join(PUBLIC, "index.html"));
-});
+router.get('/logout', logout);
 
 module.exports = router;

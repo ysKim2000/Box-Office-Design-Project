@@ -19,18 +19,16 @@
         <button style="width: 100px" type="submit">예매 조회</button>
     </form>
     <br>
-    <form id="form" action="" method="post">
-    영화후기 작성 <br>
-        <input type="text" name="comment" placeholder="comment" /><br>
-        <button type="submit">전송</button>
+    <form id="form" action="/comment" method="get">
+        <button style="width: 100px" type="submit">후기 작성</button>
     </form>
     <br>
-    내가 작성한 후기<br>
-    <form id="form" action="/comment" method="get">
+    <form id="form" action="/commentRead" method="get">
         <button style="width: 100px" type="submit">후기 조회</button>
+    </form>
     <br>
     <br>
-    <form id="form" action="/auth/logout" method="get">
+    <form id="form" action="auth/logout" method="get">
         <button type="submit">로그아웃</button>
     </form>
 </body>
