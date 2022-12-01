@@ -1,14 +1,13 @@
-const Ticket = require('../models/ticket');
-const path = require('path');
-const PUBLIC = path.join(__dirname, '../views');
 const movieService = require("../service/movieService")
+const path = require('path');
+
+const PUBLIC = path.join(__dirname, '../views');
 
 exports.movieRank = (req, res, next) => {
     try {
         res.sendFile(path.join(PUBLIC, 'movieRank.html'));
     } catch (err) {
-        console.error(err);
-        next(err);
+        res.send("실패!!!")
     }
 };
 
@@ -16,8 +15,7 @@ exports.movieReserve = (req, res, next) => {
     try {
         res.sendFile(path.join(PUBLIC, 'reservation.html'));
     } catch (err) {
-        console.error(err);
-        next(err);
+        res.send("실패!!!")
     }
 };
 
@@ -48,23 +46,21 @@ exports.reserveSystem = (req, res) => {
                 }
             );
     } catch (err) {
-        console.error(err);
-        next(err);
+        res.send("예매 실패!!")
     }
 };
 
 exports.movieRead = async (req, res) => {
     try {
         const user = await movieService.readTicket(req.cookies.userId);
-        console.log(user[1]);
         res.render('ticketRead', {
             title: 'Tickets',
             userTicket: user
         });
 
     } catch (err) {
-        console.error(err);
-        next(err);
+        res.send('티켓 정보가 없습니다.');
+        // next(err);
     }
 };
 
@@ -72,8 +68,7 @@ exports.logout = (req, res, next) => {
     try {
         res.redirect('/');
     } catch (err) {
-        console.error(err);
-        next(err);
+        res.send("실패!!!")
     }
 };
 
@@ -82,7 +77,6 @@ exports.back = (req, res, next) => {
     try {
         res.sendFile(path.join(PUBLIC, 'movie.html'));
     } catch (err) {
-        console.error(err);
-        next(err);
+        res.send("실패!!!")
     }
 };
