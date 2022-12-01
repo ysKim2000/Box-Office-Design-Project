@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>예매 페이지</title>
+    <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        const DATE = new Date().toISOString().substring(0, 10).replace(/-/g, '') - 1;
+        $.ajax({
+            method: "GET",
+            url: "http://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=999bdc7e274c0a5e1557a0642d612aee&targetDt=" + DATE,
+            data: {
+                itemPerPage: "5"
+            }
+        }).done(function (msg) {
+            let resultt = [];
+            let movieInfo = [];
+            for (let i = 0; i < 5; i++) {
+                let short_url = msg.boxOfficeResult.dailyBoxOfficeList[i];
+                resultt.push(i + 1 + ". ")
+                resultt.push(short_url.movieCd + " - ")
+                resultt.push(short_url.movieNm + "<br>")
+                let str = short_url.movieCd + "," + short_url.movieNm;
+                movieInfo.push(str);
+            }
+            $('input[id=movieInfo1]').attr('value', movieInfo[0]);
+            $('input[id=movieInfo2]').attr('value', movieInfo[1]);
+            $('input[id=movieInfo3]').attr('value', movieInfo[2]);
+            $('input[id=movieInfo4]').attr('value', movieInfo[3]);
+            $('input[id=movieInfo5]').attr('value', movieInfo[4]);
+            $("#result").append(resultt);
+        })
+    </script>
+</head>
+
+<body>
+    영화 선택
+    <div id="result"></div>
+    <hr>
+    <form id="time" action="/movie/movieReserve/reservation" method="post">
+        시간 선택<br>
+        <label>
+            <div>
+                <label>오전<input type="radio" name="time" value="AM" required /></label>
+                <label>오후<input type="radio" name="time" value="PM" /></label><br>
+            </div>
+            <div>
+                <label>01:00<input type="radio" name="movieTime" value="01:00" required /></label><br>
+                <label>03:00<input type="radio" name="movieTime" value="03:00" /></label><br>
+                <label>05:00<input type="radio" name="movieTime" value="05:00" /></label><br>
+                <label>07:00<input type="radio" name="movieTime" value="07:00" /></label><br>
+                <label>09:00<input type="radio" name="movieTime" value="09:00" /></label><br>
+                <label>11:00<input type="radio" name="movieTime" value="11:00" /></label><br>
+            </div>
+            <br>
+            영화 선택(1~5) :<br>
+            <div>
+                <label>1.<input type="radio" id="movieInfo1" name="movieInfo" value="" required /></label><br>
+                <label>2.<input type="radio" id="movieInfo2" name="movieInfo" value="" /></label><br>
+                <label>3.<input type="radio" id="movieInfo3" name="movieInfo" value="" /></label><br>
+                <label>4.<input type="radio" id="movieInfo4" name="movieInfo" value="" /></label><br>
+                <label>5.<input type="radio" id="movieInfo5" name="movieInfo" value="" /></label><br>
+            </div>
+        </label>
+        좌석 선택(A1 ~ E5) :<br>
+        <input type="text" name="movieSeat" placeholder="좌석" required/>
+        <button type="submit">전송</button>
+    </form>
+    <hr>
+    <form id="form" action="/movie/back" method="post">
+        <button type="submit">취소</button>
+    </form>
+</body>
