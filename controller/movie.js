@@ -21,7 +21,7 @@ exports.movieReserve = (req, res, next) => {
     }
 };
 
-exports.reserveSystem = async (req, res) => {
+exports.reserveSystem = (req, res) => {
     const { time, movieTime, movieInfo, movieSeat } = req.body;
     const [movieCode, movieName] = movieInfo.split(",");
 
@@ -55,14 +55,11 @@ exports.reserveSystem = async (req, res) => {
 
 exports.movieRead = async (req, res) => {
     try {
-        const userTicket = await Ticket.findAll({
-            where: { userId: req.cookies.userId },
-            attributes: ['ticket', 'movieCode', 'movieName', 'movieTime', 'movieSeat']
-        });
-
+        const user = await movieService.readTicket(req.cookies.userId);
+        console.log(user[1]);
         res.render('ticketRead', {
             title: 'Tickets',
-            userTicket: userTicket
+            userTicket: user
         });
 
     } catch (err) {
