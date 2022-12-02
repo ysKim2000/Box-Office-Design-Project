@@ -18,7 +18,7 @@ exports.signUp = async (req, res) => {
             .then(() => res.redirect('/'))
             .catch(
                 err => {
-                    res.send(err)
+                    res.send(`이미 존재하는 ${id} 입니다.`);
                     console.log(err);
                 }
             );

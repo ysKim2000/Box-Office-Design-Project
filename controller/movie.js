@@ -22,7 +22,6 @@ exports.movieReserve = (req, res, next) => {
 exports.reserveSystem = (req, res) => {
     const { time, movieTime, movieInfo, movieSeat } = req.body;
     const [movieCode, movieName] = movieInfo.split(",");
-
     try {
         const movieStr = new String(movieCode + time + movieTime + movieSeat).valueOf();
         // 즉시 함수
@@ -37,7 +36,7 @@ exports.reserveSystem = (req, res) => {
             return hash > 0 ? hash : -hash
         }
         const integerHash = func(movieStr)
-        movieService.createTicket(integerHash, req.passport.user, movieCode, movieName, time + " " + movieTime, movieSeat)
+        movieService.createTicket(integerHash, req.cookies.userId, movieCode, movieName, time + " " + movieTime, movieSeat)
             .then(() => res.sendFile(path.join(PUBLIC, 'movie.html')))
             .catch(
                 err => {
@@ -52,7 +51,7 @@ exports.reserveSystem = (req, res) => {
 
 exports.movieRead = async (req, res) => {
     try {
-        const user = await movieService.readTicket(req.passport.user);
+        const user = await movieService.readTicket(req.cookies.userId);
         res.render('ticketRead', {
             title: 'Tickets',
             userTicket: user

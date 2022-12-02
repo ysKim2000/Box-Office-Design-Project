@@ -11,8 +11,8 @@ router.get('/movieReserve', movieController.movieReserve);
 router.post('/movieReserve/reservation', movieController.reserveSystem);
 // 영화 티켓 조회 API
 router.get('/movieRead', movieController.movieRead);
-// 로그아웃 API
-router.post('/logout', movieController.logout);
+// // 로그아웃 API
+// router.post('/logout', movieController.logout);
 // 뒤로가기 API
 router.post('/back', movieController.back);
 
