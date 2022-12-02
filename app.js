@@ -10,10 +10,10 @@ const nunjucks = require('nunjucks');
 const { sequelize } = require('./models');
 
 const movieRouter = require('./routes/movie')
-const indexRouter = require('./routes');
 const authRouter = require('./routes/auth');
 const commentRouter = require('./routes/comment');
 const signUpRouter = require('./routes/signUp');
+const indexRouter = require('./routes');
 
 const passport = require('passport');
 const passportConfig = require('./passport');
@@ -25,6 +25,7 @@ const app = express();
 app.set('port', process.env.PORT || 3000);
 
 app.set('view engine', 'html');
+
 nunjucks.configure(path.join(__dirname, 'views'), {
     express: app,
     watch: true,
@@ -57,9 +58,9 @@ app.use(passport.session());
 
 app.use('/auth', authRouter);
 app.use('/movie', movieRouter);
-app.use('/', indexRouter);
 app.use('/comment', commentRouter);
 app.use('/signUp',signUpRouter);
+app.use('/', indexRouter);
 
 app.use((req, res, next) => {
     res.locals.title = require('./package.json').name;
