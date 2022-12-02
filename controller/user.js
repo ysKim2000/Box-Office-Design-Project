@@ -34,7 +34,6 @@ exports.login = async (req, res) => {
         res.render('movie', {
             name: req.cookies.userId
         });
-        req.session.passport.user
     } catch (err) {
         res.send('로그인 실패!!!')
     }
