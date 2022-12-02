@@ -1,27 +1,18 @@
-const path = require('path');
-
 const express = require('express');
-const Comment = require('../models/comment');
-const { isLoggedIn } = require('./helpers');
-
 
 const router = express.Router();
-router.route('/')
-    .get(isLoggedIn, (req, res) => {
-        res.locals.title = require('../package.json').name;
-        res.locals.userId = req.user.id;
-        res.render('comment');
-    })
-    .post(async (req, res, next) => {
-        const { comment } = req.body;
-        const userId = req.user.id;
+const commentController = require('../controller/comment')
 
-        try {
-            await Comment.create({ userId, comment });
-            res.render('movie');
-        } catch (err) {
-            console.error(err);
-            next(err);
-        }
-    });
+// Comment 페이지
+router.post('/commentPage', commentController.commentPage);
+// Comment 추가 API
+router.post('/commentAdd', commentController.commentAdd);
+// Comment 조회 페이지
+router.post('/commentRead', commentController.commentReadPage);
+// User Comment 조회 API
+router.get('/commentRead/userComment', commentController.userComment);
+// All Comment 조회 API
+router.get('/commentRead/allComment', commentController.allComment);
+
+
 module.exports = router;

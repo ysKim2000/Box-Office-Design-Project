@@ -34,10 +34,18 @@
 </head>
 
 <body>
-    영화 선택
+    <h2>영화 예매</h2>
     <div id="result"></div>
     <hr>
     <form id="time" action="/movie/movieReserve/reservation" method="post">
+        영화 선택(1~5) :<br>
+        <div>
+            <label>1.<input type="radio" id="movieInfo1" name="movieInfo" value="" required /></label><br>
+            <label>2.<input type="radio" id="movieInfo2" name="movieInfo" value="" /></label><br>
+            <label>3.<input type="radio" id="movieInfo3" name="movieInfo" value="" /></label><br>
+            <label>4.<input type="radio" id="movieInfo4" name="movieInfo" value="" /></label><br>
+            <label>5.<input type="radio" id="movieInfo5" name="movieInfo" value="" /></label><br>
+        </div><br>
         시간 선택<br>
         <label>
             <div>
@@ -51,15 +59,6 @@
                 <label>07:00<input type="radio" name="movieTime" value="07:00" /></label><br>
                 <label>09:00<input type="radio" name="movieTime" value="09:00" /></label><br>
                 <label>11:00<input type="radio" name="movieTime" value="11:00" /></label><br>
-            </div>
-            <br>
-            영화 선택(1~5) :<br>
-            <div>
-                <label>1.<input type="radio" id="movieInfo1" name="movieInfo" value="" required /></label><br>
-                <label>2.<input type="radio" id="movieInfo2" name="movieInfo" value="" /></label><br>
-                <label>3.<input type="radio" id="movieInfo3" name="movieInfo" value="" /></label><br>
-                <label>4.<input type="radio" id="movieInfo4" name="movieInfo" value="" /></label><br>
-                <label>5.<input type="radio" id="movieInfo5" name="movieInfo" value="" /></label><br>
             </div>
         </label>
         좌석 선택(A1 ~ E5) :<br>

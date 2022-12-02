@@ -18,23 +18,25 @@ exports.signUp = async (req, res) => {
             .then(() => res.redirect('/'))
             .catch(
                 err => {
+                    // res.send(err)
                     res.send(`이미 존재하는 ${id} 입니다.`);
-                    console.log(err);
                 }
             );
     } catch (err) {
         res.send('회원가입 실패!!!')
     }
 };
-
+// req.session.passport.user
 exports.login = async (req, res) => {
     const { id, pw } = req.body;
     try {
         const userId = await userService.checkUser(id, pw);
         res.cookie('userId', userId)
-        res.sendFile(path.join(PUBLIC, "movie.html"))
-
+        res.render('movie', {
+            name: req.cookies.userId
+        });
     } catch (err) {
         res.send('로그인 실패!!!')
     }
 };
+

@@ -16,5 +16,5 @@ router.get('/movieRead', movieController.movieRead);
 // 뒤로가기 API
 router.post('/back', movieController.back);
 
-
+// Comment 추가 API
 module.exports = router;

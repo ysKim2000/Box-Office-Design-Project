@@ -5,7 +5,7 @@ const PUBLIC = path.join(__dirname, '../views');
 
 exports.movieRank = (req, res, next) => {
     try {
-        res.sendFile(path.join(PUBLIC, 'movieRank.html'));
+        res.render('movieRank')
     } catch (err) {
         res.send("실패!!!")
     }
@@ -13,7 +13,8 @@ exports.movieRank = (req, res, next) => {
 
 exports.movieReserve = (req, res, next) => {
     try {
-        res.sendFile(path.join(PUBLIC, 'reservation.html'));
+        // res.sendFile(path.join(PUBLIC, 'reservation.html'));
+        res.render('reservation');
     } catch (err) {
         res.send("실패!!!")
     }
@@ -22,6 +23,7 @@ exports.movieReserve = (req, res, next) => {
 exports.reserveSystem = (req, res) => {
     const { time, movieTime, movieInfo, movieSeat } = req.body;
     const [movieCode, movieName] = movieInfo.split(",");
+
     try {
         const movieStr = new String(movieCode + time + movieTime + movieSeat).valueOf();
         // 즉시 함수
@@ -37,7 +39,7 @@ exports.reserveSystem = (req, res) => {
         }
         const integerHash = func(movieStr)
         movieService.createTicket(integerHash, req.cookies.userId, movieCode, movieName, time + " " + movieTime, movieSeat)
-            .then(() => res.sendFile(path.join(PUBLIC, 'movie.html')))
+            .then(() => res.render('movie', { name: req.cookies.userId }))
             .catch(
                 err => {
                     res.send("You can't choose this seat!!!")
@@ -74,7 +76,7 @@ exports.logout = (req, res, next) => {
 
 exports.back = (req, res, next) => {
     try {
-        res.sendFile(path.join(PUBLIC, 'movie.html'));
+        res.render('movie', {name: req.cookies.userId})
     } catch (err) {
         res.send("실패!!!")
     }

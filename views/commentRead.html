@@ -2,13 +2,17 @@
 <html>
 
 <head>
-    <title>NodeJS: {{title}}</title>
+    <title>후기 조회 페이지</title>
 </head>
 
 <body>
-    <p>
-        <a href="http://localhost:{{port}}/user/{{userId}}/comments">내가 쓴 후기</a><br>
-    </p>
+    <form id="form" action="/comment/commentRead/userComment" method="get">
+        <button style="width: 100px" type="submit">사용자 후기 조회</button>
+    </form>
+    <br>
+    <form id="form" action="/comment/commentRead/allComment" method="get">
+        <button style="width: 100px" type="submit">모든 후기 조회</button>
+    </form>
 </body>
 
 </html>
