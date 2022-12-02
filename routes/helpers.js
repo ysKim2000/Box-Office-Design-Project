@@ -12,5 +12,5 @@ exports.logout = (req, res) => {
     req.logout();
     req.session.destroy();
     res.redirect('/');
-    // res.sendFile(path.join(PUBLIC, "movie.html"))
+    // res.sendFile(path.join(PUBLIC, "index.html"))
 };

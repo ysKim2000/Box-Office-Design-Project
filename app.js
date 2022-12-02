@@ -13,7 +13,7 @@ const movieRouter = require('./routes/movie')
 const indexRouter = require('./routes');
 const authRouter = require('./routes/auth');
 const commentRouter = require('./routes/comment');
-const signUpRouter = require('./routes/signUp')
+const signUpRouter = require('./routes/signUp');
 
 const passport = require('passport');
 const passportConfig = require('./passport');

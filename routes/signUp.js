@@ -1,7 +1,6 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const User = require('../models/user');
-const Ticket = require('../models/ticket');
 const path = require('path');
 
 const router = express.Router();
@@ -15,7 +14,7 @@ router.get('/signUp', async (req, res, next) => {
     }
 });
 
-router.post('/validation', async (req, res, next) => {
+router.post('signUp/validation', async (req, res, next) => {
     try {
         const { id, password, name, birth, gender } = req.body;
         const user = await User.findOne({ where: { id } });

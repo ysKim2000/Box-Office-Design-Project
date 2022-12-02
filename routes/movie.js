@@ -59,10 +59,10 @@ router.post('/movieReserve/reservation', async (req, res) => {
             res.send("이미 등록된 좌석입니다.");
             return;
         }
-
+        console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'+req.session.passport.user);
         await Ticket.create({
             ticket: integerHash,
-            userId: req.cookies.userId,
+            userId: req.session.passport.user,
             movieCode,
             movieName,
             movieTime: time + " " + movieTime,
@@ -78,7 +78,7 @@ router.post('/movieReserve/reservation', async (req, res) => {
 router.get('/movieRead', async (req, res) => {
     try {
         const userTicket = await Ticket.findAll({ 
-            where: { userId: req.session.id },
+            where: { userId: req.session.passport.user },
             attributes: ['ticket', 'movieCode', 'movieName', 'movieTime', 'movieSeat']
         });
         // res.render(PUBLIC +"ticketRead.html", { data: userTicket })

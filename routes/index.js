@@ -1,4 +1,5 @@
 const express = require('express');
+const passport = require('passport');
 const bcrypt = require('bcrypt');
 const User = require('../models/user');
 const Ticket = require('../models/ticket');
@@ -8,6 +9,9 @@ const router = express.Router();
 const PUBLIC = path.join(__dirname, '../views');
 
 router.get('/users', (req, res,) => res.json(global.users));
+
+// router.use('/comment',comment);
+// router.use('/user',user);
 
 // router.get('/signUp', async (req, res, next) => {
 //     try {
