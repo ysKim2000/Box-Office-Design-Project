@@ -8,6 +8,6 @@ router.get('/signUp', userController.signUpPage);
 // 회원가입 API
 router.post('/signUp/check', userController.signUp);
 //로그인 API
-router.post('/movie', userController.login);
+router.post('/', userController.login);
 
 module.exports = router;

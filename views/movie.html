@@ -6,7 +6,7 @@
 </head>
 
 <body>
-    영화<br><br>
+    <h2>BOX OFFICE</h2><h4>{{name}} 님 안녕하세요.</h4><br>
     <form id="form" action="/movie/movieRank" method="get">
         <button style="width: 100px" type="submit">영화 순위</button>
     </form>
@@ -17,6 +17,14 @@
     <br>
     <form id="form" action="/movie/movieRead" method="get">
         <button style="width: 100px" type="submit">예매 조회</button>
+    </form>
+    <br>
+    <form id="form" action="/comment/commentPage" method="post">
+        <button style="width: 100px" type="submit">후기 작성</button>
+    </form>
+    <br>
+    <form id="form" action="/comment/commentRead" method="post">
+        <button style="width: 100px" type="submit">후기 조회</button>
     </form>
     <br>
     <form id="form" action="/movie/logout" method="post">

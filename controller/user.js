@@ -19,21 +19,21 @@ exports.signUp = async (req, res) => {
             .catch(
                 err => {
                     res.send(err)
-                    console.log(err);
                 }
             );
     } catch (err) {
         res.send('회원가입 실패!!!')
     }
 };
-
+// req.session.passport.user
 exports.login = async (req, res) => {
     const { id, pw } = req.body;
     try {
         const userId = await userService.checkUser(id, pw);
         res.cookie('userId', userId)
-        res.sendFile(path.join(PUBLIC, "movie.html"))
-
+        res.render('movie', {
+            name: req.cookies.userId
+        });
     } catch (err) {
         res.send('로그인 실패!!!')
     }
