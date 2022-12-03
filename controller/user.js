@@ -1,11 +1,9 @@
 const userService = require("../service/userService")
-const path = require('path');
-
-const PUBLIC = path.join(__dirname, '../views');
 
 exports.signUpPage = (req, res, next) => {
     try {
-        res.sendFile(path.join(PUBLIC, "signUp.html"))
+        // res.sendFile(path.join(PUBLIC, "signUp.html"))
+        res.render('signUp');
     } catch (err) {
         res.send("실패!!!")
     }
@@ -25,7 +23,7 @@ exports.signUp = async (req, res) => {
         res.send('회원가입 실패!!!')
     }
 };
-// req.session.passport.user
+
 exports.login = async (req, res) => {
     const { id, pw } = req.body;
     try {

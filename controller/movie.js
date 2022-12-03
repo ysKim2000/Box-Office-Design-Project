@@ -1,7 +1,4 @@
 const movieService = require("../service/movieService")
-const path = require('path');
-
-const PUBLIC = path.join(__dirname, '../views');
 
 exports.movieRank = (req, res, next) => {
     try {
@@ -13,7 +10,6 @@ exports.movieRank = (req, res, next) => {
 
 exports.movieReserve = (req, res, next) => {
     try {
-        // res.sendFile(path.join(PUBLIC, 'reservation.html'));
         res.render('reservation');
     } catch (err) {
         res.send("실패!!!")
@@ -61,7 +57,6 @@ exports.movieRead = async (req, res) => {
 
     } catch (err) {
         res.send('티켓 정보가 없습니다.');
-        // next(err);
     }
 };
 
