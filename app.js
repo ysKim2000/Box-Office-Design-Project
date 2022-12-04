@@ -9,17 +9,12 @@ const session = require('express-session');
 const nunjucks = require('nunjucks');
 const { sequelize } = require('./models');
 
-const movieRouter = require('./routes/movie')
-const authRouter = require('./routes/auth');
+const movieRouter = require('./routes/movie');
 const commentRouter = require('./routes/comment');
-const signUpRouter = require('./routes/signUp');
+const userRouter = require('./routes/user');
 const indexRouter = require('./routes');
 
-const passport = require('passport');
-const passportConfig = require('./passport');
-
 dotenv.config();
-passportConfig();
 
 const app = express();
 app.set('port', process.env.PORT || 3000);
@@ -53,13 +48,9 @@ app.use(
     })
 );
 
-app.use(passport.initialize());
-app.use(passport.session());
-
-app.use('/auth', authRouter);
 app.use('/movie', movieRouter);
 app.use('/comment', commentRouter);
-app.use('/signUp',signUpRouter);
+app.use('/user',userRouter);
 app.use('/', indexRouter);
 
 app.use((req, res, next) => {

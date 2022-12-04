@@ -39,4 +39,3 @@ exports.login = async (req, res) => {
         res.send('로그인 실패!!!')
     }
 };
-
