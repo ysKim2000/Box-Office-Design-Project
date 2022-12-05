@@ -2,7 +2,9 @@ const commentRepository = require("../repository/commentRepository");
 const movieRepository = require("../repository/ticketRepository");
 
 exports.createComment = async (id, movie, comment) => {
-    await commentRepository.createComment(id, movie, comment);
+    const today = new Date();
+    const commentId = id + movie + today.toLocaleString()
+    await commentRepository.createComment(commentId, id, movie, comment);
 };
 
 exports.getMovieComment = async (id) => {

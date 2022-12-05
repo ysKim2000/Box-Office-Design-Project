@@ -3,16 +3,16 @@ const Sequelize = require('sequelize');
 module.exports = class Comment extends Sequelize.Model {
   static init(sequelize) {
     return super.init({
-      userId: {
+      commentId: {
         type: Sequelize.STRING(100),
         allowNull: false,
         primaryKey: true
-    },
+      },
       comment: {
         type: Sequelize.STRING(100),
         allowNull: false
       },
-      movie:{
+      movie: {
         type: Sequelize.STRING(100),
         allowNull: false
       }
