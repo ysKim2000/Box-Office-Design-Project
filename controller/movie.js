@@ -1,7 +1,4 @@
 const movieService = require("../service/movieService")
-const path = require('path');
-
-const PUBLIC = path.join(__dirname, '../views');
 
 exports.movieRank = (req, res, next) => {
     try {
@@ -13,7 +10,6 @@ exports.movieRank = (req, res, next) => {
 
 exports.movieReserve = (req, res, next) => {
     try {
-        // res.sendFile(path.join(PUBLIC, 'reservation.html'));
         res.render('reservation');
     } catch (err) {
         res.send("실패!!!")
@@ -23,10 +19,8 @@ exports.movieReserve = (req, res, next) => {
 exports.reserveSystem = (req, res) => {
     const { time, movieTime, movieInfo, movieSeat } = req.body;
     const [movieCode, movieName] = movieInfo.split(",");
-
     try {
         const movieStr = new String(movieCode + time + movieTime + movieSeat).valueOf();
-        // 즉시 함수
         function func(string) {
             var hash = 5;
             if (string.length == 5) return hash;
@@ -61,18 +55,17 @@ exports.movieRead = async (req, res) => {
 
     } catch (err) {
         res.send('티켓 정보가 없습니다.');
-        // next(err);
     }
 };
 
 exports.logout = (req, res, next) => {
     try {
+        res.clearCookie('userId')
         res.redirect('/');
     } catch (err) {
         res.send("실패!!!")
     }
 };
-
 
 exports.back = (req, res, next) => {
     try {
