@@ -12,7 +12,7 @@ exports.checkUser = async (id, pw) => {
     const user = await userRepository.checkUser(id);
     const match = await bcrypt.compare(pw, user.password);
     if (user) {
-        if (match) return id
+        if (match) return id;
         else next();
     } else next();
 };

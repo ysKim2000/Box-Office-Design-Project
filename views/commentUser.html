@@ -30,12 +30,14 @@
             <th>&nbsp;No.&nbsp;</th>
             <th>&nbsp;Movie Name&nbsp;</th>
             <th>&nbsp; Comment &nbsp;</th>
+            <th>&nbsp; 비고 &nbsp;</th>
         </tr>
         {% for comment in comments %}
         <tr>
             <td> &nbsp;{{loop.index}} &nbsp;</td>
             <td> &nbsp;{{comment.movie}} &nbsp;</td>
             <td> &nbsp;{{comment.comment}} &nbsp;</td>
+            <td><a href="http://localhost:{{port}}/comment/delete/{{comment.commentId}}">삭제</a> </td>
         </tr>
         {% endfor %}
     </table>

@@ -33,6 +33,7 @@
             <th>&nbsp; Movie Name &nbsp;</th>
             <th>&nbsp; Time &nbsp;</th>
             <th>&nbsp; Seat &nbsp;</th>
+            <th>&nbsp; 비고 &nbsp;</th>
         </tr>
         {% for ticket in userTicket %}
         <tr>
@@ -41,6 +42,7 @@
             <td> &nbsp;{{ticket.movieName}} &nbsp;</td>
             <td> &nbsp;{{ticket.movieTime}} &nbsp;</td>
             <td> &nbsp;{{ticket.movieSeat}} &nbsp;</td>
+            <td><a href="http://localhost:{{port}}/movie/delete/{{ticket.ticket}}">삭제</a></td>
         </tr>
         {% endfor %}
     </table>

@@ -12,5 +12,10 @@ exports.createTicket = async (ticket, userId, movieCode, movieName, movieTime, m
 
 exports.readTicket = async (id) => {
     const user = await ticketRepository.getTicket(id);
-    return user
+    return user;
+};
+
+exports.deleteTicket = async (ticket) => {
+    const result = await ticketRepository.deleteTicket(ticket);
+    return result;
 };

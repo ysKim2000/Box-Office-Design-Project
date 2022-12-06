@@ -1,7 +1,7 @@
 const express = require('express');
 
 const router = express.Router();
-const movieController = require('../controller/movie')
+const movieController = require('../controller/movie');
 
 // 영화 순위 API
 router.get('/movieRank', movieController.movieRank);
@@ -15,6 +15,8 @@ router.get('/movieRead', movieController.movieRead);
 router.post('/logout', movieController.logout);
 // 뒤로가기 API
 router.post('/back', movieController.back);
+// 삭제 API
+router.get('/delete/:ticket', movieController.delete);
 
 // Comment 추가 API
 module.exports = router;
