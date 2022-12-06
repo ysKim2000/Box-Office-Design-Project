@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>티켓 조회 페이지</title>
+    <style>
+        table {
+            border: solid 1px #aaa999;
+        }
+
+        table tr th {
+            border: solid 1px #aaa999;
+        }
+
+        table tr td {
+            border: solid 1px #aaa999;
+            text-align: center;
+        }
+
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>{{title}}</h1>
+    <table>
+        <tr>
+            <th>&nbsp;No.&nbsp;</th>
+            <th>&nbsp; Ticket Number &nbsp;</th>
+            <th>&nbsp; Movie Name &nbsp;</th>
+            <th>&nbsp; Time &nbsp;</th>
+            <th>&nbsp; Seat &nbsp;</th>
+            <th>&nbsp; 비고 &nbsp;</th>
+        </tr>
+        {% for ticket in userTicket %}
+        <tr>
+            <td> &nbsp;{{loop.index}} &nbsp;</td>
+            <td> &nbsp;{{ticket.ticket}} &nbsp;</td>
+            <td> &nbsp;{{ticket.movieName}} &nbsp;</td>
+            <td> &nbsp;{{ticket.movieTime}} &nbsp;</td>
+            <td> &nbsp;{{ticket.movieSeat}} &nbsp;</td>
+            <td><a href="http://localhost:{{port}}/movie/delete/{{ticket.ticket}}">삭제</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+    <br>
+    <form id="form" action="/movie/back" method="post">
+        <button type="submit">취소</button>
+    </form>
+</body>

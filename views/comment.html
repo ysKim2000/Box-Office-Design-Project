@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>후기 작성 페이지</title>
+</head>
+
+<body>
+    <p>
+    <form id="form" action="/comment/commentAdd" method="post">
+        <h2>영화후기 작성</h2>
+        <h3>영화 선택</h3>
+        {% for movie in ticket %}
+        {{loop.index}}:&nbsp;
+        {{movie}} <br>
+        {% endfor %}
+        <br>
+        Movie Number: <input type="text" name="movie" placeholder="movie number" required />
+        Comment: <input type="text" name="comment" placeholder="comment" required /><br><br>
+        <button type="submit">전송</button>
+    </form>
+</body>
+
+</html>
