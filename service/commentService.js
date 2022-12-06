@@ -10,7 +10,7 @@ exports.createComment = async (id, movie, comment) => {
 exports.getMovieComment = async (id) => {
     const ticket = await movieRepository.getTicket(id);
     const movieList = [];
-    for(movie of ticket){
+    for (movie of ticket) {
         movieList.push(movie.movieName);
     }
     return new Set(movieList);
@@ -18,7 +18,7 @@ exports.getMovieComment = async (id) => {
 
 exports.getMovieName = (movieSet, movie) => {
     const movieList = [...movieSet];
-    return movieList[movie-1];
+    return movieList[movie - 1];
 };
 
 exports.getUserComment = async (id) => {

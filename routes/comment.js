@@ -14,5 +14,4 @@ router.get('/commentRead/userComment', commentController.userComment);
 // All Comment 조회 API
 router.get('/commentRead/allComment', commentController.allComment);
 
-
 module.exports = router;

@@ -1,8 +1,8 @@
 const commentService = require("../service/commentService")
 
 exports.commentPage = async (req, res, next) => {
-    try { 
-        res.render('comment', { ticket: await commentService.getMovieComment(req.cookies.userId)})
+    try {
+        res.render('comment', { ticket: await commentService.getMovieComment(req.cookies.userId) })
     } catch (err) {
         res.send("실패!!!")
     }

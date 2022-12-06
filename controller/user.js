@@ -13,11 +13,6 @@ exports.signUp = async (req, res) => {
     try {
         await userService.createUser(id, password, name, birth, gender)
             .then(() => res.redirect('/'))
-            .catch(
-                err => {
-                    res.send(`이미 존재하는 ${id} 입니다.`);
-                }
-            );
     } catch (err) {
         res.send('회원가입 실패!!!')
     }

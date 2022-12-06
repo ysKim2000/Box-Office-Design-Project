@@ -27,5 +27,3 @@ Ticket.associate(db);
 Comment.associate(db);
 
 module.exports = db;
-
-
